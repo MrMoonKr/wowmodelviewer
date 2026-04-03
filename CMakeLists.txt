@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.16)
 # that situation and locate the x64 cl.exe automatically via vswhere before
 # project() runs.
 # ---------------------------------------------------------------------------
-if(CMAKE_HOST_WIN32 AND NOT DEFINED CMAKE_C_COMPILER AND NOT DEFINED CMAKE_CXX_COMPILER)
+if(CMAKE_HOST_WIN32 AND CMAKE_GENERATOR MATCHES "Ninja" AND NOT DEFINED CMAKE_C_COMPILER AND NOT DEFINED CMAKE_CXX_COMPILER)
   find_program(_vswhere vswhere
     PATHS "$ENV{ProgramFiles\(x86\)}/Microsoft Visual Studio/Installer"
     NO_DEFAULT_PATH
@@ -54,7 +54,8 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Use dynamic CRT (/MD release, /MDd debug) to match vcpkg x64-windows-static-md libraries.
+# Use dynamic CRT (/MD release, /MDd debug) so bundled third-party libraries
+# use the same MSVC runtime as the application.
 if(MSVC)
   set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
@@ -110,9 +111,8 @@ set(CASC_BUILD_SHARED_LIB OFF CACHE BOOL "Compile dynamically linked library")
 include_directories(ThirdParty/casclib/src)
 set(CASCLIB_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/casclib)
 set(CMAKE_INSTALL_PREFIX ${CASCLIB_INSTALL_LOCATION})
-# ZLIB_INCLUDE_DIR / ZLIB_LIBRARY are set by cmake/dependencies.cmake so
-# CascLib's find_package(ZLIB) finds our vcpkg copy.
 set(CMAKE_POLICY_VERSION_MINIMUM 3.5 CACHE STRING "" FORCE)
+set(CASCLIB_SKIP_INSTALL ON CACHE BOOL "Skip CascLib install/export rules when embedded in WMV" FORCE)
 add_subdirectory(ThirdParty/casclib)
 unset(CMAKE_POLICY_VERSION_MINIMUM CACHE)
 set_property(TARGET casc_static PROPERTY FOLDER "ThirdParty libraries")

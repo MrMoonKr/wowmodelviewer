@@ -49,7 +49,9 @@
 
 // Exporters / Importers
 #include "OBJExporter.h"
+#if WMV_ENABLE_FBX_EXPORTER
 #include "FBXExporter.h"
+#endif
 #include "ArmoryImporter.h"
 #include "WowheadImporter.h"
 
@@ -417,7 +419,9 @@ void Application::initEngine()
     m_state.loading.pathBuf = m_state.settings.gamePath;
 
     m_state.exporting.exporters.push_back(std::make_unique<OBJExporter>());
+#if WMV_ENABLE_FBX_EXPORTER
     m_state.exporting.exporters.push_back(std::make_unique<FBXExporter>());
+#endif
 
     m_state.exporting.importers.push_back(std::make_unique<ArmoryImporter>());
     m_state.exporting.importers.push_back(std::make_unique<WowheadImporter>());

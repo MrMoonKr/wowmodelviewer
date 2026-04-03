@@ -1,0 +1,133 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake Configure x64-Debug",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "x64-Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Build x64-Debug",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake Configure x64-Debug",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "CMake Clean x64-Debug",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Debug",
+        "--target",
+        "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Configure x64-Release",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "x64-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Build x64-Release",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "${workspaceFolder}/out/build/x64-Release",
+        "--config",
+        "Release",
+        "--target",
+        "wowmodelviewer"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake Configure x64-Release",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "CMake Package x64-Release",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake Configure x64-Release",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "CMake Clean x64-Release",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Release",
+        "--target",
+        "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Rebuild x64-Release",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "CMake Clean x64-Release",
+        "CMake Build x64-Release"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Rebuild x64-Debug",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "CMake Clean x64-Debug",
+        "CMake Build x64-Debug"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

@@ -14,6 +14,7 @@
 #include <string>
 
 #include "CASCFile.h"
+#include "Game.h"
 #include "string_utils.h"
 #include "Logger.h"
 
@@ -184,9 +185,11 @@ bool CASCFolder::closeFile(HANDLE file)
 
 void CASCFolder::addExtraEncryptionKeys()
 {
-	std::ifstream tactKeys("extraEncryptionKeys.csv");
+	const std::filesystem::path tactKeysPath =
+		std::filesystem::path(core::Game::instance().configFolder()) / "extraEncryptionKeys.csv";
+	std::ifstream tactKeys(tactKeysPath);
 
-		if (tactKeys.is_open())
+	if (tactKeys.is_open())
 	{
 		std::string stdline;
 		while (std::getline(tactKeys, stdline))
@@ -208,6 +211,10 @@ void CASCFolder::addExtraEncryptionKeys()
 			if (!ok2)
 				LOG_ERROR << "Failed to add TACT key from file, Name:" << keyName << ", Value:" << keyValue;
 		}
+	}
+	else
+	{
+		LOG_WARNING << "Failed to open extra encryption keys file: " << tactKeysPath.string();
 	}
 }
 

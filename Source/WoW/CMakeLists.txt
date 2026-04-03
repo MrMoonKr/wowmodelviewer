@@ -122,6 +122,8 @@ add_dependencies(${NAME} casc_static)
 
 # Exporters and importers are WoW-specific; build them from here.
 add_subdirectory(Exporters/OBJ)
-add_subdirectory(Exporters/FBX)
+if(WMV_ENABLE_FBX_EXPORTER)
+  add_subdirectory(Exporters/FBX)
+endif()
 add_subdirectory(Importers/Armory)
 add_subdirectory(Importers/Wowhead)

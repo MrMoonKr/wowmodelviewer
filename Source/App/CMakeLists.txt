@@ -58,6 +58,7 @@ set_property(TARGET ${NAME} PROPERTY FOLDER "executables")
 
 # Pass the absolute path to the window icon PNG so the code works from any working directory.
 target_compile_definitions(${NAME} PRIVATE
+  WMV_ENABLE_FBX_EXPORTER=$<IF:$<BOOL:${WMV_ENABLE_FBX_EXPORTER}>,1,0>
   WMV_ICON_PATH="${CMAKE_SOURCE_DIR}/bin_support/Icons/wmv_16.png"
   WMV_FONTS_PATH="${CMAKE_SOURCE_DIR}/bin_support/fonts")
 
@@ -74,12 +75,14 @@ target_link_libraries(${NAME}
   dwmapi
   pugixml-static
   objexporter
-  fbxexporter
   armory
   wowhead
-  ${CMAKE_SOURCE_DIR}/ThirdParty/lib/x64/zlib.lib
-  ${CMAKE_SOURCE_DIR}/ThirdParty/lib/x64/libpng.lib
+  ZLIB::ZLIB
 )
+
+if(WMV_ENABLE_FBX_EXPORTER)
+  target_link_libraries(${NAME} fbxexporter)
+endif()
 
 set(BIN_DIR "${CMAKE_SOURCE_DIR}/bin/")
 install(TARGETS ${NAME} RUNTIME DESTINATION ${BIN_DIR})

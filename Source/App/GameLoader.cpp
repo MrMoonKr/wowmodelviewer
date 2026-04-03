@@ -218,6 +218,7 @@ static void loadWoW(const core::GameConfig& config, AppState& app)
 {
     app.loading.loadProgress = 0.0f;
     setLoadStatus("Opening CASC storage...", app);
+    const auto appDir = getApplicationDirPath();
 
     if (!GAMEDIRECTORY.setConfig(config))
     {
@@ -232,7 +233,13 @@ static void loadWoW(const core::GameConfig& config, AppState& app)
     LOG_INFO << "Major version: " << GAMEDIRECTORY.majorVersion();
     app.loading.loadProgress = 0.05f;
 
-    const std::string baseConfigFolder = "games/wow/";
+    std::string baseConfigFolder = appDir.string();
+    if (!baseConfigFolder.empty() &&
+        baseConfigFolder.back() != '\\' &&
+        baseConfigFolder.back() != '/')
+    {
+        baseConfigFolder.push_back(std::filesystem::path::preferred_separator);
+    }
     LOG_INFO << "Using config folder: " << baseConfigFolder;
     core::Game::instance().setConfigFolder(baseConfigFolder);
 
@@ -242,8 +249,12 @@ static void loadWoW(const core::GameConfig& config, AppState& app)
         if (total > 0)
             app.loading.loadProgress = 0.10f + 0.40f * static_cast<float>(current) / static_cast<float>(total);
     });
-    GAMEDIRECTORY.initFromListfile("../../listfile.csv");
+    GAMEDIRECTORY.initFromListfile("listfile.csv");
     GAMEDIRECTORY.setProgressCallback(nullptr);
+    if (GAMEDIRECTORY.nbChildren() == 0)
+    {
+        LOG_WARNING << "No files were loaded from listfile.csv. File Browser will be empty.";
+    }
     app.loading.loadProgress = 0.50f;
 
     setLoadStatus("Initializing database...", app);
