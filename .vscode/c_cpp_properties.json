@@ -1,0 +1,94 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "mergeConfigurations": true,
+      "intelliSenseMode": "windows-msvc-x64",
+      "cStandard": "c17",
+      "cppStandard": "c++20",
+      "defines": [
+        "WIN32",
+        "_WINDOWS",
+        "UNICODE",
+        "_UNICODE",
+        "NOMINMAX",
+        "_CRT_SECURE_NO_WARNINGS",
+        "CASCLIB_UNICODE",
+        "WMV_ENABLE_FBX_EXPORTER=0"
+      ],
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/Source/**",
+        "${workspaceFolder}/ThirdParty/include",
+        "${workspaceFolder}/ThirdParty/stb",
+        "${workspaceFolder}/ThirdParty/casclib/src",
+        "${workspaceFolder}/ThirdParty/glfw/include",
+        "${workspaceFolder}/ThirdParty/imgui",
+        "${workspaceFolder}/ThirdParty/imgui/backends",
+        "${workspaceFolder}/ThirdParty/json/include",
+        "${workspaceFolder}/ThirdParty/glm",
+        "${workspaceFolder}/out/build/x64-Debug/gladsources/glad_gl/include",
+        //"${workspaceFolder}/out/build/x64-Debug/casclib/include",
+        "${workspaceFolder}/out/build/x64-Release/casclib/include"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "${workspaceFolder}/Source",
+          "${workspaceFolder}/ThirdParty",
+          "${workspaceFolder}/out/build/x64-Debug/gladsources/glad_gl/include",
+          "${workspaceFolder}/out/build/x64-Debug/casclib/include",
+          "${workspaceFolder}/out/build/x64-Release/casclib/include"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    },
+    {
+      "name": "x64-Release",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "mergeConfigurations": true,
+      "intelliSenseMode": "windows-msvc-x64",
+      "cStandard": "c17",
+      "cppStandard": "c++20",
+      "defines": [
+        "WIN32",
+        "_WINDOWS",
+        "UNICODE",
+        "_UNICODE",
+        "NOMINMAX",
+        "_CRT_SECURE_NO_WARNINGS",
+        "CASCLIB_UNICODE",
+        "WMV_ENABLE_FBX_EXPORTER=0",
+        "NDEBUG"
+      ],
+      "includePath": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/Source/**",
+        "${workspaceFolder}/ThirdParty/include",
+        "${workspaceFolder}/ThirdParty/stb",
+        "${workspaceFolder}/ThirdParty/casclib/src",
+        "${workspaceFolder}/ThirdParty/glfw/include",
+        "${workspaceFolder}/ThirdParty/imgui",
+        "${workspaceFolder}/ThirdParty/imgui/backends",
+        "${workspaceFolder}/ThirdParty/json/include",
+        "${workspaceFolder}/ThirdParty/glm",
+        "${workspaceFolder}/out/build/x64-Release/gladsources/glad_gl/include",
+        "${workspaceFolder}/out/build/x64-Release/casclib/include",
+        "${workspaceFolder}/out/build/x64-Debug/casclib/include"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}",
+          "${workspaceFolder}/Source",
+          "${workspaceFolder}/ThirdParty",
+          "${workspaceFolder}/out/build/x64-Release/gladsources/glad_gl/include",
+          "${workspaceFolder}/out/build/x64-Release/casclib/include",
+          "${workspaceFolder}/out/build/x64-Debug/casclib/include"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ]
+}

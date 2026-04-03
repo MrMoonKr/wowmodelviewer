@@ -9,6 +9,10 @@
 
 struct GLFWwindow;
 
+
+/**
+ * GLFWwindow Wrapper Class in 'glfw3' module and Uses 'glad' module for OpenGL
+ */
 class AppWindow
 {
 public:
